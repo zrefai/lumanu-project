@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { Octokit } from "@octokit/core"
 import './App.css';
+
+const octokit = new Octokit();
+
+octokit.request('GET /search/repositories', {
+  q: 'pokemon dictionary'
+}).then(
+  (response) => {
+    console.log(response);
+  }
+);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Wow
     </div>
   );
 }

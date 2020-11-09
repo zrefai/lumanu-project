@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import "./Home.css"
 import SearchBar from "../../components/Search"
+import Suggestions from "../../components/Suggestions"
 
 const Home = () => {
     const [searchText, setSearchText] = useState("")
-
+    
     const handleInput = (e) => {
         setSearchText(e.target.value)
     }
@@ -29,6 +30,17 @@ const Home = () => {
                     />
                 </SearchBar.Form>
             </SearchBar>
+            {/* <Suggestions>
+                <div>Hello</div>
+                <div>hello</div>
+                <div>Hello</div>
+                <div>hello</div>
+            </Suggestions> */}
+            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
+            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
+            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
+            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
+            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
         </div>
     )
 }

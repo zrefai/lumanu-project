@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./Home.css"
 import SearchBar from "../../components/Search"
-import Suggestions from "../../components/Suggestions"
+import SuggestionsList from "../../components/SuggestionsList"
 
 const Home = () => {
     const [searchText, setSearchText] = useState("")

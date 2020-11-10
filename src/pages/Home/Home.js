@@ -18,26 +18,28 @@ const Home = () => {
         if (isComponentVisible) setIsComponentVisible(false)
     }
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault()
-        octokit.request('GET /search/repositories', {
-            q: searchText
-        }).then((response) => {
-            setSuggestions(response.data.items.splice(0,5))
-            setIsComponentVisible(true)
-        }).catch((error) => {
-            setError(error)
-        })
+        const promise = await octokit.request('GET /search/repositories', { q: searchText })
+        try {
+            setSuggestions(promise.data.items.splice(0,5))
+        } catch (e) {
+            setSuggestions([])
+        }
+        setIsComponentVisible(true)
     }
 
     const renderSuggestions = () => {
         if (isComponentVisible) {
-            /* Suggestions may return with nothing, handle an empty list with a "No repositories for this search" response */
             return (
             <div ref={ref}>
-                <SuggestionsList>
-                    {suggestions.map((suggestion, i) => <Suggestion key={i} repoName={suggestion.full_name} version={suggestion.releases_url}/>)}
-                </SuggestionsList>
+                {suggestions.length ? 
+                    <SuggestionsList>
+                        {suggestions.map((suggestion, i) => <Suggestion key={i} repo={suggestion}/>)}
+                    </SuggestionsList> : 
+                    <SuggestionsList>
+                        <SuggestionsList.Error>No repositories for this search or an error occured</SuggestionsList.Error>
+                    </SuggestionsList>}
             </div>)
         }
         return null

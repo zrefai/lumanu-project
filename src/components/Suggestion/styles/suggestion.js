@@ -14,7 +14,6 @@ export const SuggestionText = styled.p`
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: min(25px,calc(7px + 2vmin));
-    width: 45%;
     color: #4E80F2;
 `
 

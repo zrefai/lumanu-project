@@ -17,3 +17,11 @@ export const Container = styled.div`
     border-width: 1px;
     box-shadow: 0px 3px 6px #cccccc;
 `
+
+export const ErrorText = styled.p`
+    color: red;
+    font-size: min(25px,calc(7px + 2vmin));
+    margin-top: 15px;
+    margin-bottom: 0px;
+`
+

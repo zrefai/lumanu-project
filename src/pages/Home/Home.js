@@ -1,26 +1,53 @@
 import React, { useState } from "react"
 import "./Home.css"
+import { Octokit } from "@octokit/core"
 import SearchBar from "../../components/Search"
 import SuggestionsList from "../../components/SuggestionsList"
 import Suggestion from "../../components/Suggestion"
+import useVisible from "../../hooks/useVisible"
 
 const Home = () => {
+    const octokit = new Octokit()
+    const {ref, isComponentVisible, setIsComponentVisible} = useVisible(false)
     const [searchText, setSearchText] = useState("")
-    
+    const [suggestions, setSuggestions] = useState([])
+    const [error, setError] = useState("")
+
     const handleInput = (e) => {
         setSearchText(e.target.value)
+        if (isComponentVisible) setIsComponentVisible(false)
     }
 
     const handleSearch = (e) => {
         e.preventDefault()
-        console.log("Entered:", searchText)
+        octokit.request('GET /search/repositories', {
+            q: searchText
+        }).then((response) => {
+            setSuggestions(response.data.items.splice(0,5))
+            setIsComponentVisible(true)
+        }).catch((error) => {
+            setError(error)
+        })
     }
 
-    return (
-        <div>
+    const renderSuggestions = () => {
+        if (isComponentVisible) {
+            /* Suggestions may return with nothing, handle an empty list with a "No repositories for this search" response */
+            return (
+            <div ref={ref}>
+                <SuggestionsList>
+                    {suggestions.map((suggestion, i) => <Suggestion key={i} repoName={suggestion.full_name} version={suggestion.releases_url}/>)}
+                </SuggestionsList>
+            </div>)
+        }
+        return null
+    }
+
+    const renderSearch = () => {
+        return (
             <SearchBar>
                 <SearchBar.Form onSubmit={handleSearch}>
-                    <SearchBar.Input 
+                    <SearchBar.Input
                         type="text"
                         name="text"
                         id="searchText"
@@ -31,13 +58,13 @@ const Home = () => {
                     />
                 </SearchBar.Form>
             </SearchBar>
-            <SuggestionsList>
-                <Suggestion repoName={"Frug/AJAX-Chat"} version={"0.8.8-phpbb3.1"}/>
-                <Suggestion repoName={"ryukinix/lisp"} version={"v0.2.0"}/>
-                <Suggestion repoName={"Latand/Common-Chat"} version={"N/A"}/>
-                <Suggestion repoName={"ianrichard/common-something"} version={"N/A"}/>
-                <Suggestion repoName={"AIE-Guild/Green-chat"} version={"v1.11.1"}/>
-            </SuggestionsList>
+        )
+    }
+
+    return (
+        <div>
+            {renderSearch()}
+            {renderSuggestions()}
             <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
             <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
             <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>

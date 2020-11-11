@@ -4,6 +4,7 @@ import { Octokit } from "@octokit/core"
 import SearchBar from "../../components/Search"
 import SuggestionsList from "../../components/SuggestionsList"
 import Suggestion from "../../components/Suggestion"
+import RepoCard from "../../components/Card"
 import useVisible from "../../hooks/useVisible"
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
             setSuggestions(promise.data.items.splice(0,5))
         } catch (e) {
             setSuggestions([])
+            setError(e)
         }
         setIsComponentVisible(true)
     }
@@ -64,14 +66,10 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className="Home-Container">
             {renderSearch()}
             {renderSuggestions()}
-            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
-            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
-            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
-            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
-            <div style={{display: "flex", backgroundColor: "red", justifyContent: 'center', marginTop: '50px'}}>Hello</div>
+            <RepoCard/>
         </div>
     )
 }

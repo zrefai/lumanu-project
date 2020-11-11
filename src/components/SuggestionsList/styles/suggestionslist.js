@@ -9,7 +9,8 @@ export const Container = styled.div`
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 
-    width: 47vw;
+    max-width: 55vmin;
+    min-width: 55vmin;
     background-color: white;
     padding: 0px 12px 12px 12px;
     border-radius: 0px 0px 20px 20px;

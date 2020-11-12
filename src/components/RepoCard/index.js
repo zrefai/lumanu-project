@@ -60,14 +60,12 @@ const RepoCard = ({ repo }) => {
 
     const handleRemoveCard = (e) => {
         e.preventDefault()
-        console.log("Remove:", repo.full_name)
         dispatch(removeFromRepoList(repo.id))
     }
 
     const handleCardOnClick = (e) => {
         e.preventDefault()
-        console.log("Navigate to:", repo.full_name, "page")
-        dispatch(updateRepoSeen(repo.id))
+        if (!repo.seen) dispatch(updateRepoSeen(repo.id))
     }
 
     const renderInfoHeader = () => {
@@ -86,7 +84,7 @@ const RepoCard = ({ repo }) => {
                         maxWidth: '20%', 
                         minWidth: '20%',
                         marginRight: '0px'}}>
-                    {release_data ? release_data.created_at: "N/A"}
+                    {release_data ? release_data.created_at.split('T')[0] : "N/A"}
                 </Card.InfoHeaderText>
             </Card.InfoHeaderContainer>
         )
@@ -122,7 +120,7 @@ const RepoCard = ({ repo }) => {
     }
 
     return (
-        <Card>
+        <Card style={{borderColor: repo.seen ? '#707070' : '#5AFF5A'}}>
             <Card.Info onClick={(e) => handleCardOnClick(e)}>
                 {renderInfoHeader()}
                 {renderInfoBody()}

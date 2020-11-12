@@ -23,7 +23,8 @@ export const repoReducer = (state = {}, action) => {
                 ...state,
                 [action.payload.id]: {
                     ...state[action.payload.id],
-                    latest_release: action.payload.release
+                    latest_release: action.payload.release,
+                    seen : false
                 }
             }
         

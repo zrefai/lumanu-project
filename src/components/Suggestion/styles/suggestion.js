@@ -35,6 +35,11 @@ export const SuggestionAddButton = styled.button`
     }
 
     &:active {
+        background-color: white;
+        color: #5AFF5A
+    }
+
+    &:disabled {
         background-color: #a6a6a6;
         color: white;
     }

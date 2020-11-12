@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState }from "react"
 import { Container, SuggestionAddButton, SuggestionText } from "./styles/suggestion"
 import { useDispatch } from "react-redux"
 import useRepoVersion from "../../hooks/useRepoVersion"
@@ -18,11 +18,13 @@ Component.Button = function Button({children, ...otherProps}) {
 
 export const Suggestion = ({repo}) => {
     const {repoVersionInfo, error} = useRepoVersion(repo.owner.login, repo.name)
+    const [added, setAdded] = useState(false)
     const dispatch = useDispatch();
 
     const handleAdd = (e) => {
         e.preventDefault()
         dispatch(addToRepoList(repo.id,repo,repoVersionInfo[0]))
+        setAdded(true)
     }
 
     const renderSuggestion = () => {
@@ -38,7 +40,9 @@ export const Suggestion = ({repo}) => {
                     <Component.Text style={{width: '25%'}}>
                         N/A
                     </Component.Text>}
-                <Component.Button onClick={(e) => handleAdd(e)}>+</Component.Button>
+                <Component.Button onClick={(e) => handleAdd(e)} disabled={added}>
+                    +
+                </Component.Button>
             </Component>
         )
     }

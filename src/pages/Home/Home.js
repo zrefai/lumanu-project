@@ -21,6 +21,7 @@ const Home = () => {
 
     const handleSearch = async (e) => {
         e.preventDefault()
+        setError("")
         const promise = await octokit.request('GET /search/repositories', { q: searchText })
         try {
             setSuggestions(promise.data.items.splice(0,5))
@@ -35,7 +36,7 @@ const Home = () => {
         if (isComponentVisible) {
             return (
             <div ref={ref}>
-                {suggestions.length ? 
+                {suggestions.length && !error ? 
                     <SuggestionsList>
                         {suggestions.map((suggestion, i) => <Suggestion key={i} repo={suggestion}/>)}
                     </SuggestionsList> : 

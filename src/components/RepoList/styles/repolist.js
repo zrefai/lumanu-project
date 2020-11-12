@@ -7,3 +7,7 @@ export const Container = styled.div`
     padding-left: 20px;
     padding-right: 20px;
 `
+
+export const EmptyList = styled.p`
+    font-size: min(20px,calc(7px + 2vmin));
+`

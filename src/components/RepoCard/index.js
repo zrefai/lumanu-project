@@ -1,6 +1,7 @@
 import React from "react"
 import { FaTimes } from "react-icons/fa"
 import { useDispatch } from "react-redux"
+import useRevalidate from "../../hooks/useRevalidate"
 import { removeFromRepoList, updateRepoSeen } from "../../redux/actions"
 import { 
     Container, 
@@ -57,6 +58,9 @@ Card.RemoveButton = function CardRemoveButton({ children, ...otherProps}) {
 
 const RepoCard = ({ repo }) => {
     const dispatch = useDispatch()
+    const release_data = repo.latest_release
+    const currentReleaseID = release_data ? release_data.id : "00000000"
+    const {error} = useRevalidate(repo.owner.login, repo.name, currentReleaseID)
 
     const handleRemoveCard = (e) => {
         e.preventDefault()
@@ -69,8 +73,6 @@ const RepoCard = ({ repo }) => {
     }
 
     const renderInfoHeader = () => {
-        const release_data = repo.latest_release
-
         return (
             <Card.InfoHeaderContainer>
                 <Card.InfoHeaderText style={{maxWidth: '55%', minWidth: '55%'}}>

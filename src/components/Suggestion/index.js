@@ -23,7 +23,7 @@ export const Suggestion = ({repo}) => {
 
     const handleAdd = (e) => {
         e.preventDefault()
-        dispatch(addToRepoList(repo.id,repo,repoVersionInfo[0]))
+        dispatch(addToRepoList(repo.id,repo, repoVersionInfo[0]))
         setAdded(true)
     }
 

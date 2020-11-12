@@ -60,7 +60,7 @@ const RepoCard = ({ repo }) => {
     const dispatch = useDispatch()
     const release_data = repo.latest_release
     const currentReleaseID = release_data ? release_data.id : "00000000"
-    const {error} = useRevalidate(repo.owner.login, repo.name, currentReleaseID)
+    const {error} = useRevalidate(repo.owner.login, repo.name, repo.id, currentReleaseID)
 
     const handleRemoveCard = (e) => {
         e.preventDefault()

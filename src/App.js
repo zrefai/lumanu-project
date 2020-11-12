@@ -8,6 +8,7 @@ const NoMatch = ({ location }) => (
 )
 
 function App() {
+  // localStorage.clear()
   return (
     <div className="App">
       <Router>

@@ -17,7 +17,7 @@ export const repoReducer = (state = {}, action) => {
             return omit(state, action.payload.id)
         }
             
-        
+        //Currently using releaseID NOT repoID 
         case UPDATE_REPO_RELEASE:
             return {
                 ...state,

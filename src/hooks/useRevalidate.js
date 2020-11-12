@@ -3,7 +3,7 @@ import { Octokit } from "@octokit/core"
 import { useDispatch } from "react-redux"
 import { updateRepoRelease } from "../redux/actions"
 
-function useRevalidate(owner, repoName, currentReleaseID) {
+function useRevalidate(owner, repoName, repoID, currentReleaseID) {
     const octokit = new Octokit()
     const dispatch = useDispatch()
     const [error, setError] = useState("")
@@ -12,7 +12,7 @@ function useRevalidate(owner, repoName, currentReleaseID) {
         const promise = await octokit.request('GET /repos/{owner}/{repoName}/releases', {owner, repoName})
         try {
             if (promise.data.length && promise.data[0].id !== currentReleaseID) {
-                dispatch(updateRepoRelease(promise.data[0].id, promise.data[0]))
+                dispatch(updateRepoRelease(repoID, promise.data[0]))
             }
         } catch (e) {
             setError(e)

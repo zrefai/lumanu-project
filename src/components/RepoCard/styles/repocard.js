@@ -1,10 +1,10 @@
 import styled from "styled-components/macro"
 
-export const Container = styled.button`
+export const Container = styled.div`
     display: flex;
     flex-direction: row;
     background-color: white;
-    margin-top: 50px;
+    margin-bottom: 50px;
     max-width: 75vmin;
     min-width: 75vmin;
     padding: 15px;
@@ -39,7 +39,7 @@ export const InfoHeaderText = styled.p`
     text-overflow: ellipsis;
     text-align: left;
     overflow: hidden;
-    font-size: min(20px,calc(7px + 2vmin));
+    font-size: min(20px,calc(7px + 2vh));
     color: #4E80F2;
     font-weight: bold;
 `
@@ -55,7 +55,7 @@ export const InfoBodyText = styled.p`
     max-width: 100%;
     min-width: 100%;
     color: #707070;
-    font-size: min(20px,calc(7px + 2vmin));
+    font-size: min(20px,calc(7px + 2vh));
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: left;
@@ -79,7 +79,7 @@ export const InfoFooterText = styled.p`
     text-overflow: ellipsis;
     text-align: left;
     overflow: hidden;
-    font-size: min(20px,calc(7px + 2vmin));
+    font-size: min(20px,calc(7px + 2vh));
 `
 
 export const RemoveButtonContainer = styled.div`
@@ -91,7 +91,7 @@ export const RemoveButtonContainer = styled.div`
 `
 export const RemoveButton = styled.button`
     display: flex;
-    font-size: min(15px,calc(7px + 2vmin));
+    font-size: min(15px,calc(7px + 2vh));
     font-weight: bold;
     color: red;
     background-color: white;

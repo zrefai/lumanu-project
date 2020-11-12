@@ -4,8 +4,8 @@ import { Octokit } from "@octokit/core"
 import SearchBar from "../../components/Search"
 import SuggestionsList from "../../components/SuggestionsList"
 import Suggestion from "../../components/Suggestion"
-import RepoCard from "../../components/Card"
 import useVisible from "../../hooks/useVisible"
+import RepoList from "../../components/RepoList"
 
 const Home = () => {
     const octokit = new Octokit()
@@ -69,7 +69,7 @@ const Home = () => {
         <div className="Home-Container">
             {renderSearch()}
             {renderSuggestions()}
-            <RepoCard/>
+            <RepoList />
         </div>
     )
 }

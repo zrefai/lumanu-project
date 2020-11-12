@@ -1,6 +1,8 @@
 import React from "react"
 import { Container, SuggestionAddButton, SuggestionText } from "./styles/suggestion"
+import { useDispatch } from "react-redux"
 import useRepoVersion from "../../hooks/useRepoVersion"
+import { addToRepoList } from "../../redux/actions"
 
 function Component({ children, ...otherProps}) {
     return <Container {...otherProps}>{children}</Container>
@@ -16,10 +18,11 @@ Component.Button = function Button({children, ...otherProps}) {
 
 export const Suggestion = ({repo}) => {
     const {repoVersionInfo, error} = useRepoVersion(repo.owner.login, repo.name)
+    const dispatch = useDispatch();
 
     const handleAdd = (e) => {
         e.preventDefault()
-        console.log("Added:", repo.name, repoVersionInfo[0])
+        dispatch(addToRepoList(repo.id,repo,repoVersionInfo[0]))
     }
 
     const renderSuggestion = () => {

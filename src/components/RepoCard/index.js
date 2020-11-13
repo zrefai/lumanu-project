@@ -72,7 +72,6 @@ const RepoCard = ({ repo }) => {
     const handleCardOnClick = (e) => {
         e.preventDefault()
         if (!repo.seen) dispatch(updateRepoSeen(repo.id))
-        console.log("Navigate to: ", repo.id)
         history.push(`/details`, {repoId: repo.id})
     }
 

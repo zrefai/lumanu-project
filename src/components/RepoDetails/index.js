@@ -3,7 +3,8 @@ import {
     RepoInfoTextContainer,
     RepoInfoText, 
     ReleaseInfoContainer, 
-    ReleaseInfoText} from "./styles/repodetails"
+    ReleaseInfoText
+} from "./styles/repodetails"
 import ReactMarkdown from 'react-markdown'
 import { useSelector } from "react-redux"
 import { selectReposList } from "../../redux/selectors"

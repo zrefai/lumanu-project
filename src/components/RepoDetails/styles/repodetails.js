@@ -40,7 +40,3 @@ export const ReleaseInfoText = styled.p`
     font-size: min(20px,calc(7px + 2vmin));
     color: #4E80F2;
 `
-
-export const ErrorText = styled.p`
-    font-size: min(20px,calc(7px + 2vmin));
-`

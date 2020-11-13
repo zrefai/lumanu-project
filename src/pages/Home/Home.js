@@ -36,13 +36,7 @@ const Home = () => {
         if (isComponentVisible) {
             return (
             <div ref={ref}>
-                {suggestions.length && !error ? 
-                    <SuggestionsList>
-                        {suggestions.map((suggestion, i) => <Suggestion key={i} repo={suggestion}/>)}
-                    </SuggestionsList> : 
-                    <SuggestionsList>
-                        <SuggestionsList.Error>No repositories for this search or an error occured</SuggestionsList.Error>
-                    </SuggestionsList>}
+                <SuggestionsList suggestions={suggestions} error={error}/>
             </div>)
         }
         return null

@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import { Container, EmptyList } from "./styles/repolist"
+import { selectReposList } from "../../redux/selectors"
 import RepoCard from "../RepoCard"
 
 function List ({ children, ...otherProps }) {
@@ -10,8 +11,6 @@ function List ({ children, ...otherProps }) {
 List.EmptyText = function EmptyListText({ children, ...otherProps }) {
     return <EmptyList {...otherProps}>{children}</EmptyList>
 }
-
-const selectReposList = state => state.repos
 
 const RepoList = () => {
     const repos = useSelector(selectReposList)

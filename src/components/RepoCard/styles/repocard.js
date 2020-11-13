@@ -54,7 +54,7 @@ export const InfoBodyContainer = styled.div`
 export const InfoBodyText = styled.p`
     max-width: 100%;
     min-width: 100%;
-    color: #707070;
+    color: #666666;
     font-size: min(20px,calc(7px + 2vh));
     white-space: nowrap;
     text-overflow: ellipsis;

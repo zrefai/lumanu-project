@@ -2,6 +2,10 @@
 
 A github repository tracker that gives you detailed information about the latest release of a repository
 
+# Deployed website
+
+You can go the the prod version of this app at https://git-tracker-lumanu.web.app/
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -1,10 +1,15 @@
-# Getting Started with Create React App
+# Github Repository Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A github repository tracker that gives you detailed information about the latest release of a repository
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn install`
+
+Runs the installer.\
+Installs all of the necessary packages that the app needs to run.
 
 ### `yarn start`
 
@@ -13,11 +18,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn build`
 
@@ -29,42 +29,49 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## How it works
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### SearchBar
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can search for repositories or users in the search bar. The the first five results will appear in a suggestions list under the search bar.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Example Searches:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `microsoft`, where one is looking for repositories under the microsoft user name
+- `microsoft/vscode`, where one is search for repositories under microsoft with the name vscode
 
-## Learn More
+The search bar uses the Github Search API to get the suggestions listed in the suggestions list.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### SuggestionsList
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+These are the list of "suggestions" after you query the Search API. The top 5 results will show up in this list. If you are looking for a specific repository and it did not show up in the `SuggestionsList`, the query is either incorrect, or it needs to be more specific.
 
-### Code Splitting
+The `SuggestionList` displays a list of `Suggestions`. Each `Suggestion` links to the `RepoList` through redux. You can add a suggestion to the `RepoList` by hitting the plus button to the left of a `Suggestion`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### RepoList
 
-### Analyzing the Bundle Size
+The `RepoList` presents the list of user tracked repositories. After adding a `Suggestion` from the `SuggestionList`, the `RepoList` will re-render with the newly added repository. This is because the `RepoList` subscribes to `repos` in the redux state, and will re-render everytime there is a change in `repos` state.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+`RepoList` renders a list of `RepoCard`s. A card can be removed from the list by hitting the remove button at the top left of the card. It will no longer be tracked, and will be removed from the cache
 
-### Making a Progressive Web App
+### RepoCard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The `RepoCard` does a couple of things at the same time:
 
-### Advanced Configuration
+- It carries some of the information about a tracked repository
+- Subscribes to `repos` state in redux so that it can be updated when a new release comes in
+- It is marked as new by the green color around its border. After it is clicked on, it changes that color to grey (which signifies that the user looked at it).
+- After a new release comes in, it will change itself back to the green "new" color.
+- Uses a release revalidate hook to update the cache with any new release information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The release revalidate hook is the most important thing that this component contains. After rendering, it will check to see if any new updates should be made to the release section of a particular repository. If a new release is identified the `repos` state is updated in redux, which causes the `RepoCard` to re-render with the new release information; it will also mark that card as not "seen." This alerts the user of any new updates to the repository after a reload of the page.
 
-### Deployment
+### RepoDetails
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+`RepoDetails` gets passed the repository id so that it can find it in the `repos` state. It will display all of the information of the current release and some meta info about the repository.
 
-### `yarn build` fails to minify
+`RepoDetails` also uses a markdown reader to display the release markdown in a nice formatt.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Caching
+
+Redux handles the general state management in the app while redux persist handles the caching to localStorage

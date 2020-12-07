@@ -1,1 +1,1 @@
-export const selectReposList = state => state.repos
+export const selectReposList = (state) => state.repos;

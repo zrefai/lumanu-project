@@ -1,25 +1,28 @@
-import { useState, useEffect } from "react"
-import { Octokit } from "@octokit/core"
+import { useState, useEffect } from "react";
+import { Octokit } from "@octokit/core";
 
 function useRepoVersion(owner, repoName) {
-    const octokit = new Octokit()
-    const [repoVersionInfo, setRepoVersionInfo] = useState([])
-    const [error, setError] = useState("")
+  const octokit = new Octokit();
+  const [repoVersionInfo, setRepoVersionInfo] = useState([]);
+  const [error, setError] = useState("");
 
-    const fetchRepoVersionInfo = async () => {
-        const promise = await octokit.request('GET /repos/{owner}/{repoName}/releases', {owner, repoName})
-        try {
-            setRepoVersionInfo(promise.data)
-        } catch (e) {
-            setError(e)
-        }
+  const fetchRepoVersionInfo = async () => {
+    const promise = await octokit.request(
+      "GET /repos/{owner}/{repoName}/releases",
+      { owner, repoName }
+    );
+    try {
+      setRepoVersionInfo(promise.data);
+    } catch (e) {
+      setError(e);
     }
+  };
 
-    useEffect(() => {
-        fetchRepoVersionInfo()
-    },[])
+  useEffect(() => {
+    fetchRepoVersionInfo();
+  }, []);
 
-    return {repoVersionInfo, error}
+  return { repoVersionInfo, error };
 }
 
-export default useRepoVersion
+export default useRepoVersion;
